@@ -1,16 +1,33 @@
-let pokemonList = [
-    {name: 'Mudkip' , height: 0.4, type1:'water', type2: null},
-    {name:'Marshtomp' , height:0.7, type1: 'water', type2:'ground'},
-    {name:'Swampert' , height:1.5, type1:'water', type2: 'ground'},
-];
-
-for (let i = 0; i<=pokemonList.length; i++){
+let pokemonRepository = (function () {
+    let pokemonList =[
+        {name: 'Mudkip' , height: 0.4, types:['water'] },
+        {name:'Marshtomp' , height:0.7, types:['water', 'ground']},
+        {name:'Swampert' , height:1.5, types:['water', 'ground']},
+    ];
     
-    document.write("Name: " + pokemonList[i].name + "\n", 
-    "Height: " + pokemonList[i].height + "\n");
-        if (pokemonList[i].height > 1){
-            document.write(" - Wow, that's big!");
-        }
-    document.write("<br>");
-}
+  
+    function add(pokemon) {
+        pokemonList.push(pokemon);
+      }
+    
+      function getAll() {
+        return pokemonList;
+      }
+    
+      return {
+        add: add,
+        getAll: getAll
+      };
+  })();
+console.log(pokemonRepository.getAll());
+pokemonRepository.add('Taillow')
+console.log(pokemonRepository.getAll());
+
+pokemonList.forEach(function(pokemon) {
+    document.write('<p>'+pokemon.name + ' ' + pokemon.height+'<p>');
+  });
+
+
+
+
 
