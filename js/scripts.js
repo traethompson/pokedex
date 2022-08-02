@@ -20,8 +20,15 @@ let pokemonRepository = (function () {
       };
   })();
 console.log(pokemonRepository.getAll());
+pokemonRepository.getAll().forEach(function (pokemon) {
+  if (pokemon.height >= 1) {
+  document.write( '<p>' + pokemon.name + ' ' + '(Height: ' + pokemon.height + ')' + ' - Wow that\'s big!' + '</p>')
+  }
+  else document.write( '<p>' + pokemon.name + ' ' + '(Height: ' + + pokemon.height + ')' + '</p>')
+  });
 pokemonRepository.add('Taillow')
 console.log(pokemonRepository.getAll());
+
 
 pokemonList.forEach(function(pokemon) {
     document.write('<p>'+pokemon.name + ' ' + pokemon.height+'<p>');
