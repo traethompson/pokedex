@@ -1,0 +1,12 @@
+ul {
+    list-style-type: none;
+}
+
+
+
+.entry{
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(203, 199, 199);
+    width: 45vw;
+}

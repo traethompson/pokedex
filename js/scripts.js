@@ -9,6 +9,25 @@ let pokemonRepository = (function () {
     function add(pokemon) {
         pokemonList.push(pokemon);
       }
+
+    
+    function showDetails(pokemon){
+        console.log(pokemon.name);
+      }
+    
+
+    function addListItem(pokemon){
+      let pokedexPrint = document.querySelector('.pokedex');
+      let listItem = document.createElement('li');
+      let button = document.createElement('button');
+      button.innerText = pokemon.name;
+      button.classList.add('entry');
+      listItem.appendChild(button);
+      pokedexPrint.appendChild(listItem);
+      button.addEventListener('click', showDetails);
+    }
+
+   
     
       function getAll() {
         return pokemonList;
@@ -16,23 +35,16 @@ let pokemonRepository = (function () {
     
       return {
         add: add,
-        getAll: getAll
+        getAll: getAll,
+        addListItem: addListItem,
+        showDetails: showDetails,
       };
   })();
-console.log(pokemonRepository.getAll());
+
 pokemonRepository.getAll().forEach(function (pokemon) {
-  if (pokemon.height >= 1) {
-  document.write( '<p>' + pokemon.name + ' ' + '(Height: ' + pokemon.height + ')' + ' - Wow that\'s big!' + '</p>')
-  }
-  else document.write( '<p>' + pokemon.name + ' ' + '(Height: ' + + pokemon.height + ')' + '</p>')
+  pokemonRepository.addListItem(pokemon);
   });
-pokemonRepository.add('Taillow')
-console.log(pokemonRepository.getAll());
 
-
-pokemonList.forEach(function(pokemon) {
-    document.write('<p>'+pokemon.name + ' ' + pokemon.height+'<p>');
-  });
 
 
 
