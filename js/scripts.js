@@ -7,7 +7,14 @@ let pokemonRepository = (function () {
     
   
     function add(pokemon) {
-        pokemonList.push(pokemon);
+      // Check if pokemon variable is an object
+      if (typeof pokemon === 'object') {
+      let keys = Object.keys(pokemon);
+      // Check if pokemon variable has 'name', 'height', and 'types' keys
+      if (keys.indexOf('name') >= 0 && keys.indexOf('height') >= 0 && keys.indexOf('types') >= 0) {
+      pokemonList.push(pokemon);
+      }
+      }
       }
 
     
@@ -17,14 +24,16 @@ let pokemonRepository = (function () {
     
 
     function addListItem(pokemon){
+      //Format list with buttons
       let pokedexPrint = document.querySelector('.pokedex');
       let listItem = document.createElement('li');
-      let button = document.createElement('button');
-      button.innerText = pokemon.name;
-      button.classList.add('entry');
-      listItem.appendChild(button);
+      let buttonList = document.createElement('button');
+      buttonList.innerText = pokemon.name;
+      buttonList.classList.add('entry');
+      listItem.appendChild(buttonList);
       pokedexPrint.appendChild(listItem);
-      button.addEventListener('click', showDetails);
+      //allow button to display details
+      buttonList.addEventListener('click', showDetails);
     }
 
    
