@@ -17,23 +17,27 @@ let pokemonRepository = (function () {
       }
       }
 
-    
-    function showDetails(pokemon){
-        console.log(pokemon.name);
-      }
-    
 
+      function showDetails(pokemon){
+        console.log(pokemon.name);
+        }
+        
+        function addClickEvent(button, pokemon) {
+          button.addEventListener('click', function(e) {
+          showDetails(pokemon);
+          });
+          }
     function addListItem(pokemon){
       //Format list with buttons
       let pokedexPrint = document.querySelector('.pokedex');
       let listItem = document.createElement('li');
-      let buttonList = document.createElement('button');
-      buttonList.innerText = pokemon.name;
-      buttonList.classList.add('entry');
-      listItem.appendChild(buttonList);
+      let button = document.createElement('button');
+      button.innerText = pokemon.name;
+      button.classList.add('entry');
+      listItem.appendChild(button);
       pokedexPrint.appendChild(listItem);
       //allow button to display details
-      buttonList.addEventListener('click', showDetails);
+      addClickEvent(button, pokemon);
     }
 
    
