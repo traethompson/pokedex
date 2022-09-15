@@ -3,60 +3,28 @@ let pokemonRepository = (function () {
     let apiUrl= 'https://pokeapi.co/api/v2/pokemon/?limit=575';
     //add display modal
     function showModal(pokemon){
-      let modalContainer = document.querySelector('#modal-container');
-      modalContainer.innerHTML = ' ';
-    //create modal in HTML
-      let modal = document.createElement('div');
-      modal.classList.add('modal');
-    //Close button
-      let closeButton = document.createElement('button');
-      closeButton.classList.add('close-modal');
-      closeButton.innerHTML = 'Close';
-      closeButton.addEventListener('click', hideModal);
-    //Title
-      let titleElement = document.createElement('h1');
-      titleElement.innerHTML = pokemon.name;
-    //Adding height
-      let detailElement = document.createElement('p');
-      detailElement.innerHTML ='Height: ' + pokemon.height;
-    //Types to be added to the display later, stored as array in API
+      //select modal parts
+      let modalTitle = $('.modal-title');
+      let modalBody = $('.modal-body');
+      let modalHeader = $('.modal-header');
 
-      // let typeDetail = document.createElement('p');
-      // typeDetail.innerHTML = 'Type: ' + pokemon.types;
+      modalTitle.empty();
+      modalBody.empty();
+    //Adding name and height
+      let nameElement = $('<h1>' + pokemon.name + '</h1>');
+      let heightElement = $('<h2> Height:' + pokemon.height + '</h2>');
+      
 
     //Display Picture
-      let pokePic = document.createElement('img');
-      pokePic.src = pokemon.imageUrl;
+      let pokePic = $("<img class = 'modal-img' style = 'width:50%'>")
+      pokePic.attr('src', pokemon.imageUrl);
     //Append all
-      modal.appendChild(closeButton);
-      modal.appendChild(titleElement);
-      modal.appendChild(detailElement);
-      // modal.appendChild(typeDetail);
-      modal.appendChild(pokePic);
-      modalContainer.appendChild(modal);
-    //set visibility class
-      modalContainer.classList.add("is-visible");
-    //hide on click
-      modalContainer.addEventListener('click', (e) =>{
-        let target = e.target;
-        if (target===modalContainer){
-          hideModal();
-        }
-      });
+      modalTitle.append(nameElement);
+      modalBody.append(heightElement);
+      modalBody.append(pokePic);
+
     }
-  //hide modal
-    function hideModal(){
-      let modalContainer = document.querySelector('#modal-container');
-      modalContainer.classList.remove('is-visible');
-    }
-  //hide with escape key
-    window.addEventListener('keydown', (e)=>{
-      let modalContainer = document.querySelector('#modal-container');
-      if (e.key==='Escape'&& modalContainer.classList.contains('is-visible')){
-        hideModal();
-      }
-    });
-  
+    //add function
     function add(pokemon) {
       //check that pokemon data is valid and push to list
       if(typeof pokemon ==="object" && "name" in pokemon){
@@ -123,22 +91,23 @@ let pokemonRepository = (function () {
       }
         
       function addClickEvent(button, pokemon) {
-          button.addEventListener('click', function(e) {
+          button.on('click', function() {
           showDetails(pokemon);
           });
           }
 
     function addListItem(pokemon){
-      //Format list with buttons
-      let pokedexPrint = document.querySelector('.pokedex');
-      let listItem = document.createElement('li');
-      let button = document.createElement('button');
-      button.innerText = pokemon.name;
-      button.classList.add('entry');
-      listItem.appendChild(button);
-      pokedexPrint.appendChild(listItem);
+      let list = $('.list-group');
+      let listEntry = $("<li class = 'group-list-item'></li>");
+      let button = $("<button class='btn btn-primary' data-toggle='modal' data-target='#pokedex'></button>");
+      let srButton = $("<button class='btn btn-primary sr-only' data-toggle='modal' data-target='#pokedex'></button>");
+      button.text(pokemon.name);
+      srButton.text(pokemon.name);
+      listEntry.append(button, srButton);
+      list.append(listEntry);
       //allow button to display details
       addClickEvent(button, pokemon);
+      addClickEvent(srButton, pokemon);
     }
 
    
