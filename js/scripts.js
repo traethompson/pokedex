@@ -6,7 +6,6 @@ let pokemonRepository = (function () {
       //select modal parts
       let modalTitle = $('.modal-title');
       let modalBody = $('.modal-body');
-      let modalHeader = $('.modal-header');
 
       modalTitle.empty();
       modalBody.empty();
